@@ -1,0 +1,177 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+
+	<!-- Start Banner Area -->
+	<section class="banner-area organic-breadcrumb">
+		<div class="container">
+			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+				<div class="col-first">
+					<h1>Browse All Products</h1>
+					<nav class="d-flex align-items-center">
+						<a href="{% url 'index' %}">Home<span class="lnr lnr-arrow-right"></span></a>
+						<a href="#">Shop<span class="lnr lnr-arrow-right"></span></a>
+						
+					</nav>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Banner Area -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-12">
+				<!-- Start Filter Bar -->
+				<div class="filter-bar d-flex flex-wrap align-items-center">
+					<div class="sorting mr-auto">
+						<form method="GET" action="/browse/" class="form-inline">
+							<input class="form-control mr-sm-2" name="search" id="search" type="search" placeholder="Search" aria-label="Search">
+							<button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+						</form>
+					</div>
+					<div class="sorting ">
+						<select name="club" id="club-list" onchange="location= finalurl();">
+							<option value="" disabled selected hidden>All Clubs</option>
+							{% for club in clubname %}
+							<option value="{{club.id}}">{{club.club_name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="sorting">
+						<select name="category" id="category-list" onchange="location= finalurl1();">
+							<option value=""disabled selected hidden>All Items</option>
+							{% for category in categorys %}
+							<option value="{{category.id}}">{{category.category_name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="sorting">
+						<select name="sort" id="sort-list" onchange="location= finalurl2();">
+							<option value=""disabled selected hidden >Sort</option>
+							<option value="price">Price:Low to High</option>
+							<option value="-price">Price:High to Low</option>
+							<option value="-date_added">Recently Added</option>
+						</select>
+					</div>
+
+				</div>
+				<!-- End Filter Bar -->
+				<!-- Start Best Seller -->
+				<section class="lattest-product-area pb-40 category-list">
+					<div class="row">
+						<!-- single product -->
+						{% for product in products %}
+						<div class="col-lg-3 col-md-6">
+							<div class="single-product">
+								<img class="img-fluid" src="{{product.imageURL}}" alt="">
+								<div class="product-details">
+									<h6>{{product.name}}</h6>
+									<div class="price">
+										<h6>{{product.price}}</h6>
+										<h6 class="l-through">{{product.before_price}}</h6>
+									</div>
+									<div class="prd-bottom">
+
+										<a href="#" data-product={{product.id}} data-action="add" class="social-info update-cart">
+											<span class="ti-bag"></span>
+											<p class="hover-text">Add to bag</p>
+										</a>
+										<a href="" class="social-info">
+											<span class="lnr lnr-heart"></span>
+											<p class="hover-text">Wishlist</p>
+										</a>
+										<a href="{% url 'productdetails' product.id %}" class="social-info">
+											<span class="lnr lnr-move"></span>
+											<p class="hover-text">view more</p>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</section>
+				<!-- End Best Seller -->
+				<!-- Start Filter Bar -->
+				<div class="filter-bar d-flex flex-wrap align-items-center">
+						{% if is_paginated %}
+						<div class="pagination">
+							{% if page_obj.has_previous %}
+							<a href="/browse/?page={{ page_obj.previous_page_number }}" class="prev-arrow"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a>
+							{% endif %}
+
+							{% for i in loop %}
+							{% if i == page_obj.number %}
+							<a href="/browse/?page={{i}}" class="active">{{i}}</a>
+							{% else %}
+							<a href="/browse/?page={{i}}">{{i}}</a>
+							
+							<!--<a href="#" class="dot-dot"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+							<a href="#">6</a>
+							-->
+							{% endif %}
+							{% endfor %}
+							{% if page_obj.has_next %}
+							<a href="/browse/?page={{page_obj.next_page_number}}" class="next-arrow"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a>
+							{% endif %}
+						</div>
+						{% endif %}
+				</div>
+				<!-- End Filter Bar -->
+			</div>
+		</div>
+	</div>
+
+	<!-- Start related-product Area -->
+	<section class="related-product-area section_gap">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-6 text-center">
+					<div class="section-title">
+						<h1>Hot Deals</h1>
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore
+							magna aliqua.</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-9">
+					<div class="row">
+						{% for deal in hotdeals %}
+						<div class="col-lg-4 col-md-4 col-sm-6 mb-20">
+							<div class="single-related-product d-flex">
+								<a href="{% url 'productdetails' deal.id %}"><img src="{{deal.imageURL}}" style="height: 100px; width: 100px;" alt=""></a>
+								<div class="desc">
+									<a href="{% url 'productdetails' deal.id %}" class="title">{{deal.name}}</a>
+									<div class="price">
+										<h6>{{deal.price}}</h6>
+										<h6 class="l-through">{{deal.before_price}}</h6>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="ctg-right">
+						<div class="single-deal">
+							<div class="overlay">
+							</div>
+								<img class="img-fluid w-100" src="{% static 'img/category/c5new.jpg' %}" alt="">
+							
+								<div class="deal-details">
+									<a href="#" >
+									<h6 class="deal-title">Advertisement</h6>
+									</a>
+								</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End related-product Area -->
+
+{% endblock content %}

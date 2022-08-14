@@ -1,0 +1,257 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Checkout</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="single-product.html">Checkout</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Checkout Area =================-->
+    <section class="checkout_area section_gap">
+        <div class="container">
+            
+            <div class="billing_details">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h3>Shipping Details</h3>
+
+                        <form class="row contact_form" id="form" method="post" novalidate="novalidate">
+                            
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="first" name="fullname" placeholder="Full Name">
+                                </div>
+                            
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="number" name="phone" placeholder="Phone Number">
+                            </div>
+                            <div class="col-md-6 form-group p_star">
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                                
+                            </div>
+
+                            <div class="col-md-12 form-group p_star">
+                                <select class="country_select" name="district">
+                                    <option value="Kathmandu">Kathmandu</option>
+                                    <option value="Bhaktapur">Bhaktapur</option>
+                                    <option value="Lalitpur">Lalitpur</option>
+                                    <option value="Bara">Bara</option>    
+                                </select>
+                            </div>
+
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="city" name="city" placeholder="City">
+                                
+                            </div>
+                            
+                            <div class="col-md-12 form-group p_star">
+                                <input type="text" class="form-control" id="add1"  name="address" placeholder="Address (eg: Airport road, Simara,1, Jeetpur Simara Sub Metropolitian)">
+                                
+                            </div>
+                            
+                            
+                       
+                            <div class="col-md-12 form-group">
+                                <div class="creat_account">
+                                    <h3>Additional Details</h3>
+                                </div>
+                                <textarea class="form-control" name="message" id="message" rows="1" placeholder="Order Notes"></textarea>
+                            </div>
+                            <div class="col-md-6 form-group p_star">
+                                <button class="primary-btn" type="submit" id="form-button">Confirm</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="order_box">
+                            <h2>Your Order</h2>
+                            
+                            <ul class="list">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Product</th>
+                                                <th scope="col">Qnt.</th>
+                                                
+                                                <th scope="col">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in items %}
+                                            <tr>
+                                                <td>
+                                                        <div class="media-body">
+                                                            <p>{{item.Product.name}}</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p>x{{item.quantity}}</p>
+                                                </td>
+                                                <td>
+                                                    <p>{{item.get_total}}</p>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+                                
+                            </ul>
+                            <ul class="list list_2">
+                                <li><a href="#">Subtotal <span>{{order.get_cart_total}}</span></a></li>
+                                <li><a href="#">Shipping <span>Include Later</span></a></li>
+                                <li><a href="#">Total <span>{{order.get_cart_total}}</span></a></li>
+                            </ul>
+                    
+                            <div class="payment_item hidden" id="payment_info">
+                                <div class="radion_btn">
+                                    <input type="radio" id="f-option5" name="selector">
+                                    <label for="f-option5">Cash On Delivery</label>
+                                    <div class="check"></div>
+                                </div>
+                                <p>Please provide payment at the time of delivery. Your bill will be provided via email. Provide the transaction number in bill while receiving delivery.</p>
+                            </div>
+                            <div class="payment_item hidden" id="payment_info1">
+                                <div class="radion_btn">
+                                    <input type="radio" id="f-option6" name="selector">
+                                    <label for="f-option6">Paypal </label>
+                                    <img src="{% static 'img/product/card.jpg'%}" alt="">
+                                    <div class="check"></div>
+                                </div>
+                                <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal
+                                    account.</p>
+                            </div>
+                            <div class="creat_account hidden" id="terms">
+                                <input type="checkbox" id="f-option4" name="selector">
+                                <label for="f-option4">I’ve read and accept the </label>
+                                <a href="#">terms & conditions*</a>
+                            </div>
+                            <div class="creat_account hidden" id="terms1">
+                                <input type="checkbox" id="f-option7" name="selector">
+                                <label for="f-option4">I’ve read and accept the </label>
+                                <a href="#">terms & conditions*</a>
+                            </div>
+                            <a class="primary-btn hidden" id="paypalbtn" href="#">Proceed to Payment</a>
+                            <a class="primary-btn hidden" id="codbtn" href="#">Confirm the transaction</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================End Checkout Area =================-->
+
+    <script type="text/javascript">
+        var form = document.getElementById('form')
+        var total='{{order.get_cart_total}}'
+
+        form.addEventListener('submit', function(e){
+            e.preventDefault()
+            console.log('form submitted....')
+            document.getElementById('form-button').classList.add('hidden')
+            document.getElementById('payment_info').classList.remove('hidden')
+            document.getElementById('payment_info1').classList.remove('hidden')
+            
+        })
+
+        document.getElementById('f-option5').addEventListener('change', e =>{
+            if(e.target.checked){
+            console.log('cash on delivery choosed')
+            document.getElementById('payment_info1').classList.add('hidden')
+            document.getElementById('terms').classList.remove('hidden')
+            }
+        })
+
+        document.getElementById('f-option6').addEventListener('change', e =>{
+            if(e.target.checked){
+            console.log('paypal choosed')
+            document.getElementById('payment_info').classList.add('hidden')
+            document.getElementById('terms1').classList.remove('hidden')
+            }
+        })
+
+        document.getElementById('f-option4').addEventListener('change', e =>{
+            if(e.target.checked){
+            console.log('terms agreed')
+            document.getElementById('codbtn').classList.remove('hidden')
+            }
+        })
+
+        document.getElementById('f-option7').addEventListener('change', e =>{
+            if(e.target.checked){
+            console.log('terms agreed')
+            document.getElementById('paypalbtn').classList.remove('hidden')
+            }
+        })
+
+         document.getElementById('codbtn').addEventListener('click', function(e){
+            console.log('cod btn clicked')
+            submitFormData()
+        }) 
+
+       function submitFormData(){
+        console.log('payment button clicked.')
+    
+        
+
+        var userFormData ={
+            'name':null,
+            'useremail':null,
+            'total':total,
+        }
+
+        var shippingInfo ={
+            'fullname':form.fullname.value,
+            'phone': form.phone.value,
+            'email': form.email.value,
+            'district': form.district.value,
+            'city': form.city.value,
+            'address': form.address.value,
+            'message': form.message.value,       
+        }
+
+        if (user=='AnonymousUser'){
+            userFormData.name = form.fullname.value
+            userFormData.useremail = form.email.value
+        }
+
+        var url='/process_order/'
+        fetch(url,{
+            method:'POST',
+            headers:
+            {
+                'Content-Type':'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({'form':userFormData, 'shipping':shippingInfo})
+
+        })
+        .then((response) => response.json())
+
+        .then((data) =>{
+        console.log('Success:', data);
+        alert('Transaction Completed. ');
+        window.location.href = "{% url 'browse' %}"
+       }) 
+    }
+
+        
+    </script>
+{% endblock content %}

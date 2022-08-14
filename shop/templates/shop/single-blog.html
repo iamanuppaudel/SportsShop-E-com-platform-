@@ -1,0 +1,157 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    <!-- Start Banner Area -->
+    <section class="banner-area organic-breadcrumb">
+        <div class="container">
+            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                <div class="col-first">
+                    <h1>Blog Page</h1>
+                    <nav class="d-flex align-items-center">
+                        <a href="{% url 'index' %}">Home<span class="lnr lnr-arrow-right"></span></a>
+                        <a href="{% url 'blogpage' %}">Blog<span class="lnr lnr-arrow-right"></a>
+                        <a href="">Blog Details</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Banner Area -->
+
+    <!--================Blog Area =================-->
+    <section class="blog_area single-post-area section_gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 posts-list">
+                    <div class="single-post row">
+                        <div class="col-lg-12">
+                            <div class="feature-img">
+                                <img class="img-fluid" src="{{blogdetails.imageURL}}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-lg-3  col-md-3">
+                            <div class="blog_info text-right">
+                                <div class="post_tag">
+                                    <a href="#">{{blogdetails.tags}}</a>
+                                    
+                                </div>
+                                <ul class="blog_meta list">
+                                    <li><a href="#">{{blogdetails.writer_name}}<i class="lnr lnr-user"></i></a></li>
+                                    <li><a href="#">{{blogdetails.blog_date|date:"D d M Y"}}<i class="lnr lnr-calendar-full"></i></a></li>
+                                    <li><a href="#">{{blogdetails.view_count}}<i class="lnr lnr-eye"></i></a></li>
+                                    
+                                </ul>
+                                <ul class="social-links">
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-github"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-9 col-md-9 blog_details">
+                            <br>
+                                <h2>{{blogdetails.title}}</h2>
+                                <br>
+                                <p class="excert">
+                                    {{blogdetails.sub_title}}
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-12 mt-25">
+                                    <p>
+                                        {{blogdetails.description| safe}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog_right_sidebar">
+                        <aside class="single_sidebar_widget search_widget">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search Posts" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Posts'">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
+                                </span>
+                            </div><!-- /input-group -->
+                            <div class="br"></div>
+                        </aside>
+                        
+                        <aside class="single_sidebar_widget popular_post_widget">
+                            <h3 class="widget_title">Popular Posts</h3>
+                            {% for i in popularpost %}
+                            <div class="media post_item">
+                                <img src="{{i.imageURL}}"  style="height: 70px; width: 70px;"  alt="post">
+                                <div class="media-body">
+                                    <a href="{% url 'blogdetail' i.id %}">
+                                        <h3>{{i.title}}</h3>
+                                    </a>
+                                    <p>{{i.blog_date|date:"D d M Y"}}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            
+                            <div class="br"></div>
+                        </aside>
+                        <aside class="single_sidebar_widget ads_widget">
+                            <a href="#"><img class="img-fluid" src="img/blog/add.jpg" alt=""></a>
+                            <div class="br"></div>
+                        </aside>
+                        <aside class="single_sidebar_widget post_category_widget">
+                            <h4 class="widget_title">Advertisement</h4>
+                            <div class="single-deal">
+                                <div class="overlay">
+                                </div>
+                                    <img class="img-fluid w-100" src="{% static 'img/banner/advertisement1.jpg' %}" alt="">
+                                
+                                    <div class="deal-details">
+                                        <a href="#" >
+                                        <h6 class="deal-title">Advertisement</h6>
+                                        </a>
+                                    </div>	
+                            </div>
+                            <div class="br"></div>
+                        </aside>
+                        <aside class="single_sidebar_widget post_category_widget">
+                            <h4 class="widget_title">Advertisement</h4>
+                            <div class="single-deal">
+                                <div class="overlay">
+                                </div>
+                                    <img class="img-fluid w-100" src="{% static 'img/banner/advertisement2.jpg' %}" alt="">
+                                
+                                    <div class="deal-details">
+                                        <a href="#" >
+                                        <h6 class="deal-title">Advertisement</h6>
+                                        </a>
+                                    </div>	
+                            </div>
+                            <div class="br"></div>
+                        </aside>
+                        <aside class="single_sidebar_widget post_category_widget">
+                            <h4 class="widget_title">Advertisement</h4>
+                            <div class="single-deal">
+                                <div class="overlay">
+                                </div>
+                                    <img class="img-fluid w-100" src="{% static 'img/banner/advertisement3.jpg' %}" alt="">
+                                
+                                    <div class="deal-details">
+                                        <a href="#" >
+                                        <h6 class="deal-title">Advertisement</h6>
+                                        </a>
+                                    </div>	
+                            </div>
+                            <div class="br"></div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================Blog Area =================-->
+    {% endblock content %}
